@@ -1,4 +1,4 @@
-// js/chat.js
+
 
 document.addEventListener("DOMContentLoaded", () => {
   const chatBox = document.getElementById("chat-box");

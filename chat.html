@@ -1,19 +1,19 @@
+<!-- chat.html -->
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Draw World JC-2 — Sala de Rol</title>
-  <!-- OJO: nombre del archivo CSS sin "/" delante -->
-  <link rel="stylesheet" href="/style-chat.css" />
+  <title>Sala ✦ Cross Moon</title>
+  <link rel="stylesheet" href="style-chat.css" />
 </head>
 
 <body class="chat-body">
   <!-- CABECERA -->
   <header class="chat-header">
     <div class="chat-header-left">
-      <div class="chat-logo">🌓</div>
+      <div class="chat-logo">DW</div>
       <div>
         <div class="chat-title">Draw World JC-2</div>
         <div class="chat-subtitle">Sala de Rol · Luna de Cristal</div>
@@ -44,22 +44,22 @@
 
       <div class="chat-input-bar">
         <textarea id="message-input" class="chat-input" rows="1"
-          placeholder="Escribe aquí para narrar, hablar o lanzar hechizos..."></textarea>
+          placeholder="Escribe aquí para rolear con tu party..."></textarea>
         <button id="send-btn" class="btn primary">Enviar</button>
       </div>
     </section>
 
-    <!-- COLUMNA LATERAL: JUGADORES + LORE -->
+    <!-- COLUMNA LATERAL: JUGADORES -->
     <aside class="chat-side">
       <div class="side-card">
         <div class="side-card-header">
-          <span>Party actual</span>
+          <span>Party en esta instancia</span>
           <span id="players-count" class="badge-pill">0</span>
         </div>
         <ul id="players-list" class="players-list"></ul>
       </div>
 
-      <div class="side-card">
+      <div class="side-card side-card-lore">
         <div class="side-card-header">
           <span>Registro del Mundo</span>
         </div>

@@ -1,101 +1,638 @@
-/* styles-chat.css */
-
-/* FONDO GENERAL */
-.chat-theme-anime {
-    background: radial-gradient(circle at top, #111827, #020617 60%, #000000);
-    color: #e5e7eb;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+/* ================================
+   RESET
+   ================================ */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
 }
 
-/* CAJA DE CHAT */
+/* ================================
+   FONDO GENERAL
+   ================================ */
+
+body.chat-body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+    color: #e5e7eb;
+
+    /* Cielo estrellado mágico */
+    background:
+        radial-gradient(circle at 0% 0%, #4c1d95 0, transparent 55%),
+        radial-gradient(circle at 100% 0%, #0ea5e9 0, transparent 55%),
+        radial-gradient(circle at 50% 100%, #22c55e 0, transparent 60%),
+        linear-gradient(180deg, #020617, #020617);
+    background-attachment: fixed;
+}
+
+/* ================================
+   CABECERA
+   ================================ */
+
+.chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.9rem 1.6rem;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.4);
+
+    background: radial-gradient(circle at top, #0f172a 0, #020617 60%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.8);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.chat-header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.chat-logo {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(circle at 20% 20%, #facc15, #fb7185),
+        radial-gradient(circle at 80% 80%, #22c55e, #0f766e);
+    box-shadow:
+        0 0 14px rgba(250, 204, 21, 0.9),
+        0 0 24px rgba(56, 189, 248, 0.7);
+    font-size: 1.3rem;
+}
+
+.chat-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #e5e7eb;
+}
+
+.chat-subtitle {
+    font-size: 0.8rem;
+    color: #a5b4fc;
+    opacity: 0.9;
+}
+
+.chat-header-right {
+    display: flex;
+    align-items: center;
+}
+
+.chat-user-passport {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: #e5e7eb;
+}
+
+.chat-user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    border: 2px solid rgba(250, 204, 21, 0.9);
+    background:
+        radial-gradient(circle at 30% 10%, #f97316, #7c2d12),
+        radial-gradient(circle at 70% 90%, #22c55e, #14532d);
+    box-shadow:
+        0 0 8px rgba(250, 204, 21, 0.9),
+        0 0 18px rgba(15, 23, 42, 0.9);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+}
+
+.chat-user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-user-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.chat-user-tag {
+    font-size: 0.75rem;
+    color: #a5b4fc;
+}
+
+/* ================================
+   LAYOUT PRINCIPAL
+   ================================ */
+
+.chat-shell {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem 1.5rem 1.4rem;
+}
+
+.chat-main {
+    flex: 2.2;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.chat-side {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+/* ================================
+   CAJA DE CHAT
+   ================================ */
+
 .chat-box {
-    background: rgba(15, 23, 42, 0.9);
-    border-radius: 16px;
-    padding: 1rem;
-    height: 60vh;
+    background:
+        radial-gradient(circle at 10% 0%, rgba(59, 130, 246, 0.45) 0, transparent 50%),
+        radial-gradient(circle at 90% 0%, rgba(244, 114, 182, 0.45) 0, transparent 50%),
+        linear-gradient(135deg, #020617, #020617);
+    border-radius: 20px;
+    padding: 1rem 1.1rem;
+    height: 62vh;
     overflow-y: auto;
     border: 1px solid rgba(148, 163, 184, 0.5);
+    box-shadow:
+        0 26px 40px rgba(0, 0, 0, 0.9),
+        0 0 0 1px rgba(15, 23, 42, 0.9);
 }
 
-/* MENSAJES */
+/* Scrollbar */
+.chat-box::-webkit-scrollbar,
+.players-list::-webkit-scrollbar,
+.lore-log::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chat-box::-webkit-scrollbar-thumb,
+.players-list::-webkit-scrollbar-thumb,
+.lore-log::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.8);
+    border-radius: 999px;
+}
+
+/* ================================
+   MENSAJES
+   ================================ */
+
 .chat-message {
-    padding: 0.6rem 0.8rem;
-    border-radius: 10px;
-    margin-bottom: 0.5rem;
-    background: rgba(30, 64, 175, 0.6);
+    margin-bottom: 0.7rem;
+    display: flex;
+}
+
+.chat-message-inner {
+    display: flex;
+    gap: 0.55rem;
+    max-width: 80%;
 }
 
 .chat-message.mine {
-    background: rgba(22, 163, 74, 0.7);
-    text-align: right;
+    justify-content: flex-end;
 }
 
-.chat-meta {
+.chat-message.mine .chat-message-inner {
+    flex-direction: row-reverse;
+}
+
+/* AVATARES */
+
+.chat-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 12px;
+    flex-shrink: 0;
+    background: radial-gradient(circle at 30% 20%, #38bdf8, #0f172a);
+    box-shadow:
+        0 0 6px rgba(56, 189, 248, 0.8),
+        0 0 3px rgba(15, 23, 42, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #eff6ff;
+    overflow: hidden;
+}
+
+.chat-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.chat-avatar.me {
+    background: radial-gradient(circle at 30% 20%, #f472b6, #c026d3);
+    box-shadow:
+        0 0 7px rgba(244, 114, 182, 0.9),
+        0 0 4px rgba(15, 23, 42, 0.9);
+}
+
+.chat-avatar.npc-gm {
+    background: radial-gradient(circle at 30% 20%, #facc15, #f97316);
+}
+
+.chat-avatar.npc-luna {
+    background: radial-gradient(circle at 30% 20%, #a855f7, #4c1d95);
+}
+
+/* BURBUJAS */
+
+.chat-bubble {
+    border-radius: 16px;
+    padding: 0.52rem 0.8rem 0.48rem;
+    box-shadow:
+        0 8px 14px rgba(15, 23, 42, 0.9),
+        0 0 0 1px rgba(15, 23, 42, 0.9);
+    border: 1px solid rgba(148, 163, 184, 0.65);
+    background: linear-gradient(135deg,
+            rgba(30, 64, 175, 0.9),
+            rgba(15, 23, 42, 0.95));
+    color: #e5e7eb;
+}
+
+.chat-message.mine .chat-bubble {
+    background: linear-gradient(135deg,
+            rgba(244, 114, 182, 0.95),
+            rgba(129, 140, 248, 0.95));
+    border-color: rgba(236, 72, 153, 0.9);
+    color: #fdf2f8;
+}
+
+.chat-meta-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 0.18rem;
+}
+
+.chat-author {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.chat-time {
     font-size: 0.7rem;
-    opacity: 0.8;
+    opacity: 0.7;
 }
 
 .chat-text {
     font-size: 0.9rem;
+    line-height: 1.45;
 }
 
-/* MODAL ANIME */
-.anime-modal {
-    border-radius: 16px;
-    border: 1px solid rgba(129, 140, 248, 0.7);
-    box-shadow: 0 0 25px rgba(129, 140, 248, 0.7);
+/* Etiqueta "editado" */
+.chat-edited-tag {
+    margin-top: 0.2rem;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    opacity: 0.7;
 }
 
-/* TARJETA DE JUGADORES */
-.players-card {
+/* Botón editar */
+.chat-edit-btn {
+    margin-left: 2.4rem;
+    margin-top: 0.15rem;
+    font-size: 0.7rem;
+    padding: 0.18rem 0.6rem;
+    border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.8);
+    background: rgba(15, 23, 42, 0.9);
+    color: #e5e7eb;
+    cursor: pointer;
+}
+
+.chat-edit-btn:hover {
+    background: rgba(30, 64, 175, 0.9);
+}
+
+/* ================================
+   INPUT DE MENSAJE
+   ================================ */
+
+.chat-input-bar {
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-end;
+}
+
+.chat-input {
+    flex: 1;
+    resize: none;
+    border-radius: 14px;
+    border: 1px solid rgba(148, 163, 184, 0.8);
+    padding: 0.6rem 0.8rem;
+    font-size: 0.9rem;
     background: rgba(15, 23, 42, 0.95);
-    border-radius: 16px;
-    border: 1px solid rgba(96, 165, 250, 0.7);
-    padding: 0.75rem;
-    box-shadow: 0 0 15px rgba(37, 99, 235, 0.5);
+    color: #e5e7eb;
+    outline: none;
+    box-shadow: 0 4px 8px rgba(15, 23, 42, 0.8);
 }
 
-.players-header {
+.chat-input:focus {
+    border-color: rgba(56, 189, 248, 0.9);
+    box-shadow:
+        0 0 0 1px rgba(56, 189, 248, 0.9),
+        0 0 0 4px rgba(56, 189, 248, 0.35);
+}
+
+/* Botones */
+
+.btn {
+    border-radius: 999px;
+    border: 1px solid transparent;
+    padding: 0.5rem 1.1rem;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    cursor: pointer;
+    transition:
+        background-color 0.15s ease,
+        transform 0.1s ease,
+        box-shadow 0.15s ease,
+        border-color 0.15s ease;
+}
+
+.btn.primary {
+    background: linear-gradient(90deg, #22c55e, #22c55e);
+    color: #022c22;
+    border-color: #15803d;
+    box-shadow:
+        0 3px 0 #052e16,
+        0 0 14px rgba(22, 163, 74, 0.9);
+}
+
+.btn.primary:hover {
+    transform: translateY(1px);
+    box-shadow:
+        0 1px 0 #052e16,
+        0 0 10px rgba(22, 163, 74, 1);
+}
+
+.btn.ghost {
+    background: transparent;
+    color: #e5e7eb;
+    border-color: rgba(148, 163, 184, 0.9);
+}
+
+.btn.ghost:hover {
+    background: rgba(31, 41, 55, 0.9);
+}
+
+/* ================================
+   INDICADOR "ESCRIBIENDO"
+   ================================ */
+
+.typing-indicator {
+    margin-top: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.75rem;
+    color: #cbd5f5;
+}
+
+.typing-indicator.hidden {
+    display: none;
+}
+
+.typing-indicator .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: #e5e7eb;
+    animation: typingDot 1s infinite ease-in-out;
+}
+
+.typing-indicator .dot:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+.typing-indicator .dot:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+@keyframes typingDot {
+
+    0%,
+    60%,
+    100% {
+        transform: translateY(0);
+        opacity: 0.5;
+    }
+
+    30% {
+        transform: translateY(-4px);
+        opacity: 1;
+    }
+}
+
+/* ================================
+   PANEL LATERAL: PARTY & LORE
+   ================================ */
+
+.side-card {
+    background: rgba(15, 23, 42, 0.95);
+    border-radius: 18px;
+    border: 1px solid rgba(59, 130, 246, 0.7);
+    padding: 0.75rem 0.9rem;
+    box-shadow:
+        0 18px 30px rgba(0, 0, 0, 0.9),
+        0 0 0 1px rgba(15, 23, 42, 1);
+}
+
+.side-card-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     margin-bottom: 0.5rem;
+    color: #e5e7eb;
 }
 
+.badge-pill {
+    border-radius: 999px;
+    padding: 0.1rem 0.6rem;
+    font-size: 0.7rem;
+    background: rgba(56, 189, 248, 0.2);
+    border: 1px solid rgba(56, 189, 248, 0.9);
+    color: #e0f2fe;
+}
+
+/* Lista de jugadores */
+
 .players-list {
-    max-height: 50vh;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-height: 40vh;
     overflow-y: auto;
 }
 
-/* ITEM DE JUGADOR */
 .player-item {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    background: transparent;
+    gap: 0.45rem;
+    padding: 0.35rem 0.2rem;
+    border-radius: 10px;
     color: #e5e7eb;
-    font-size: 0.9rem;
 }
 
 .player-item.me {
-    background: rgba(34, 197, 94, 0.12);
-    border-left: 3px solid rgba(34, 197, 94, 0.9);
+    background: rgba(244, 114, 182, 0.15);
+    border-left: 3px solid rgba(244, 114, 182, 0.9);
 }
 
-.player-status-dot {
-    width: 10px;
-    height: 10px;
+.player-dot {
+    width: 8px;
+    height: 8px;
     border-radius: 999px;
     background: #22c55e;
     box-shadow: 0 0 6px rgba(34, 197, 94, 0.9);
 }
 
+.player-info {
+    display: flex;
+    flex-direction: column;
+}
+
 .player-name {
+    font-size: 0.85rem;
     font-weight: 500;
 }
 
 .player-role {
-    font-size: 0.75rem;
-    opacity: 0.8;
+    font-size: 0.7rem;
+    color: #9ca3af;
+}
+
+/* Lore / bitácora */
+
+.lore-log {
+    font-size: 0.8rem;
+    color: #e5e7eb;
+    max-height: 26vh;
+    overflow-y: auto;
+}
+
+.lore-log p {
+    margin: 0 0 0.55rem;
+}
+
+/* ================================
+   MODAL DE EDICIÓN
+   ================================ */
+
+.edit-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 40;
+}
+
+.edit-modal-overlay.open {
+    display: flex;
+}
+
+.edit-modal {
+    background: radial-gradient(circle at top, #1e293b, #020617);
+    border-radius: 18px;
+    padding: 1.4rem 1.5rem 1.2rem;
+    width: min(480px, 100% - 2rem);
+    border: 1px solid rgba(129, 140, 248, 0.9);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 1);
+    color: #e5e7eb;
+}
+
+.edit-modal-title {
+    margin: 0 0 0.7rem;
+    font-size: 0.9rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+}
+
+.edit-textarea {
+    width: 100%;
+    min-height: 110px;
+    border-radius: 12px;
+    border: 1px solid rgba(148, 163, 184, 0.85);
+    background: rgba(15, 23, 42, 0.95);
+    color: #e5e7eb;
+    padding: 0.6rem 0.75rem;
+    font-size: 0.9rem;
+    resize: vertical;
+    outline: none;
+}
+
+.edit-textarea:focus {
+    border-color: rgba(129, 140, 248, 0.95);
+    box-shadow:
+        0 0 0 1px rgba(129, 140, 248, 0.95),
+        0 0 0 4px rgba(129, 140, 248, 0.35);
+}
+
+.edit-modal-actions {
+    margin-top: 0.9rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+/* ================================
+   RESPONSIVE
+   ================================ */
+
+@media (max-width: 900px) {
+    .chat-shell {
+        flex-direction: column;
+    }
+
+    .chat-main {
+        order: 1;
+    }
+
+    .chat-side {
+        order: 2;
+    }
+}
+
+@media (max-width: 600px) {
+    .chat-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .chat-shell {
+        padding: 0.8rem;
+    }
+
+    .chat-box {
+        height: 50vh;
+    }
 }
